@@ -1,0 +1,4 @@
+#!/bin/bash
+find . -type f -name '*.jpeg' -exec xattr -c {} \;
+find . -type f -name '*.png' -exec xattr -c {} \;
+find . -type f -name '*.tif' -exec xattr -c {} \;
