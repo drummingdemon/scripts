@@ -26,7 +26,7 @@ A Python script that shows the currently active DHCP leases, courtesy of the kin
 
 ## filevault_progress
 
-A macOS shell script that shows the FileVault encryption process for all ongoing drives.
+A macOS shell script that shows the FileVault / APFS encryption process for all ongoing drives.
 1. Put this within your PATH, such as ``~/bin``.
 2. Make it executable with ``chmod u+x ~/bin/filevault_progress``
 3. Run it by simply executing ``filevault_progress`` from anywhere
