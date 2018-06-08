@@ -1,2 +1,3 @@
 #!/bin/bash
-diskutil cs list |grep -e 'Conversion Progress'
+diskutil cs list |grep -e 'Progress'
+diskutil apfs list |grep -e 'Progress'
