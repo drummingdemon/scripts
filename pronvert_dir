@@ -1,0 +1,51 @@
+#!/bin/bash
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+
+function doCompress {
+  for f in *;
+  do
+    if [[ "$f" != *-x265\.* && "$f" != *.h265\.* ]]
+    then
+     SECONDS=0
+      # copy everything and recompress audio
+#      ffmpeg -i "$f" -map 0 -c copy -c:v libx265 -preset medium -x265-params crf=28 -c:a aac -strict experimental -b:a 128k "${f%.*}-x265.mkv"
+      # copy everything but leave audio
+#      ffmpeg -i "$f" -map 0 -c copy -c:v libx265 -preset medium -x265-params crf=28 -c:a copy "${f%.*}-x265.mkv"
+      # discard chapter data
+#      caffeinate -i ffmpeg -i "$f" -map 0 -c copy -c:v libx265 -preset medium -x265-params crf=28 -c:a aac -strict experimental -b:a 128k -map_chapters -1 "${f%.*}-x265.mkv"
+      # use streams 0 and 1 only
+#     caffeinate ffmpeg -i "$f" -map 0:0 -map 0:1 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28 -c:a aac -strict experimental -b:a 128k -map_chapters -1 "${f%.*}-x265.mkv"
+     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Converting: ${f%.*}"
+     caffeinate ffmpeg -loglevel error -hide_banner -stats -i "$f" -map 0 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28:log-level=error -c:a aac -strict experimental -b:a 128k "${f%.*}-x265.mkv"
+     actualsize=$(wc -c <"${f%.*}-x265.mkv")
+     if [ $actualsize -lt 1000000 ]; then
+       caffeinate ffmpeg -loglevel error -hide_banner -stats -y -i "$f" -map 0:0 -map 0:1 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28:log-level=error -c:a aac -strict experimental -b:a 128k -map$
+     fi
+        # encode video stream and audio, copy everything else
+#       caffeinate ffmpeg -i "$f" -map 0 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28 -c:a aac -strict experimental -b:a 128k -map_chapters -1 "${f%.*}-x265.mkv"
+      # verbose logging
+#      ffmpeg -loglevel panic -i "$f" -map 0 -c copy -c:v libx265 -preset medium -x265-params crf=28 -c:a aac -strict experimental -b:a 128k "${f%.*}-x265.mkv"
+      # dry run
+#      echo "${f%.*}-x265.mkv"
+     duration=$SECONDS
+     echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] Finished in $(($duration / 60)) minutes and $(($duration % 60)) seconds\n"
+    fi
+  done
+}
+
+echo -e "Converting all readable video files to HEVC/x265 in the current directory\n\n- It WILL skip previously encoded '*-x265.mkv' files\n- 0:0 video and 0:1 audio streams are used\n"
+
+if [ -z "$STY" ]; then
+  read -p "WARNING! Should be run within a separate screen - continue? " answer
+  case ${answer:0:1} in
+        y|Y )
+        doCompress
+        ;;
+        * )
+        echo "Exiting"
+        ;;
+  esac
+  else
+        doCompress
+fi
