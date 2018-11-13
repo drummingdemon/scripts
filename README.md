@@ -45,3 +45,10 @@ An invaluable script that strips all images files from the metadata that is not 
 1. Put this within your PATH, such as ``~/bin``.
 2. Make it executable with ``chmod u+x ~/bin/xcodecleanxattr``
 3. Run it by simply executing ``xcodecleanxattr`` from the directory that holds the images in question
+
+## pronvert_dir
+
+Converts all files that do not have '-x265.' or '.h265.' in their name to HEVC/x265 using FFmpeg. Warns if you do not run it in a separate 'screen' as conversions tend to run for a long time. 'caffeinate' is macOS command to prevent the system from entering sleep mode. Ideally, the first audio track will be used and hard compressed to AAC 128k Stereo. Bad chapter data is discarded along with subtitles - although these can be altered by using a combination of the commented out commands.
+1. Put this within your PATH, such as ``~/bin``.
+2. Make it executable with ``chmod u+x ~/bin/pronvert_dir``
+3. Run it by simply executing ``pronvert_dir`` from the directory that holds the video files in question
