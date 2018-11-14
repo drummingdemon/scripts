@@ -55,10 +55,10 @@ Converts all files that do not have '-x265.' or '.h265.' in their name to HEVC/x
 
 Sample output:
 
-``[2018-11-14 06:33:10] Converting: video1
-frame=94768 fps= 17 q=-0.0 Lsize=  448349kB time=00:52:42.09 bitrate=1161.5kbits/s speed=0.556x
-[2018-11-14 08:07:55] Finished in 94 minutes and 45 seconds
+``[2018-11-14 06:33:10] Converting: video1``
+``frame=94768 fps= 17 q=-0.0 Lsize=  448349kB time=00:52:42.09 bitrate=1161.5kbits/s speed=0.556x``
+``[2018-11-14 08:07:55] Finished in 94 minutes and 45 seconds``
 
-[2018-11-14 08:07:55] Converting: totally_not_porn
-frame=37834 fps=7.0 q=-0.0 Lsize=  318611kB time=00:26:18.00 bitrate=1654.0kbits/s speed=0.294x
-[2018-11-14 09:37:24] Finished in 89 minutes and 29 seconds``
+``[2018-11-14 08:07:55] Converting: totally_not_porn``
+``frame=37834 fps=7.0 q=-0.0 Lsize=  318611kB time=00:26:18.00 bitrate=1654.0kbits/s speed=0.294x``
+``[2018-11-14 09:37:24] Finished in 89 minutes and 29 seconds``
