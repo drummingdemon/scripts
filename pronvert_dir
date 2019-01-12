@@ -20,7 +20,7 @@ function doCompress {
      caffeinate ffmpeg -loglevel error -hide_banner -stats -i "$f" -map 0 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28:log-level=error -c:a aac -strict experimental -b:a 128k "${f%.*}-x265.mkv"
      actualsize=$(wc -c <"${f%.*}-x265.mkv")
      if [ $actualsize -lt 1000000 ]; then
-       caffeinate ffmpeg -loglevel error -hide_banner -stats -y -i "$f" -map 0:0 -map 0:1 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28:log-level=error -c:a aac -strict experimental -b:a 128k -map$
+       caffeinate ffmpeg -loglevel error -hide_banner -stats -y -i "$f" -map 0:0 -map 0:1 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28:log-level=error -c:a aac -strict experimental -b:a 128k -map_chapters -1 "${f%.*}-x265.mkv"
      fi
         # encode video stream and audio, copy everything else
 #       caffeinate ffmpeg -i "$f" -map 0 -c copy -c:v:0 libx265 -preset medium -x265-params crf=28 -c:a aac -strict experimental -b:a 128k -map_chapters -1 "${f%.*}-x265.mkv"
